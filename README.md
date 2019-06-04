@@ -8,59 +8,24 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+torch
+torchvision
+dipha
 
-```
-Give examples
-```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+For installing DIPHA check https://github.com/DIPHA/dipha. After cloning the repository build using:
 
 ```
-Give the example
+cd ./dipha
+cmake -H. .Bbuild
+cmake --build build -- -j3	
 ```
 
-And repeat
+### Usage
+python main.py --net lenet --dataset mnist --trial 0 --lr 0.001  --n_epochs_train  --epochs_test '5' --graph_type functional --homology_type 'persistent' --train 1 --build_graph 1
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
