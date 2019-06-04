@@ -87,8 +87,7 @@ losses = []
 for epoch in range(start_epoch, start_epoch+args.epochs):
     print('Epoch {}'.format(epoch))
 
-    for i in range(10):
-        loss_tr, acc_tr = passer_train.run(optimizer, manipulator=manipulator)
+    loss_tr, acc_tr = passer_train.run(optimizer, manipulator=manipulator)
     loss_te, acc_te = passer_test.run()
    
     losses.append({'loss_tr':loss_tr, 'loss_te': loss_te, 'acc_tr': acc_tr, 'acc_te':acc_te})
