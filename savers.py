@@ -14,9 +14,9 @@ def save_checkpoint(checkpoint, path, fname):
     """ Save checkpoint to path with fname """
 
     print('Saving checkpoint...')
-    
+
     if not os.path.isdir(path):
-        os.mkdir(path)
+        os.makedirs(path)
         
     torch.save(checkpoint, path+fname)
 
