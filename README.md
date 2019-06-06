@@ -34,7 +34,6 @@ For training LeNet on MNIST and computing the first betti curve do:
 ```
 python main.py --net lenet --dataset mnist --trial 0 --lr 0.001  --n_epochs_train 50 --epochs_test '10 20 30 40 50' --graph_type functional --homology_type 'persistent' --train 1 --build_graph 1
 ```
-After finishing results willl be stored at 
 
 ## References
 
