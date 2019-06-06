@@ -4,7 +4,7 @@ By projecting a Deep Neural Network into a set of Topological Spaces and computi
 1. Learning to generalize in DNN is defined by the creation of 2D and 3D cavities in the topological space representing the correlations of activation of distant nodes of the DNN, and the movement of 1D cavities from higher to lower density.
 2. Memorizing (overfitting) is indicated by a regression of these cavities toward higher densities in the topological space.
   
-![alt text](https://raw.github.com/cipriancorneanu/dnn-topology/art/overview.png)
+![alt text](https://github.com/cipriancorneanu/dnn-topology/art/overview.png)
 
 More details here: [CVPR2019 paper](https://cipriancorneanu.github.io/files/corneanu2019what.pdf)
 
