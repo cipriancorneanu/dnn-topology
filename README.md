@@ -35,16 +35,14 @@ python main.py --net lenet --dataset mnist --trial 0 --lr 0.001  --n_epochs_trai
 ```
 It will train for 50 epochs and compute topology for the epochs in --epochs_test.
 
-[//]: # (
-### Support models
-Currently LeNet and VGG16 are supported. 
-)
+[//]: # (### Support models  Currently LeNet and VGG16 are supported. )
 
 ## More Information
 For more information check:
 * [CVPR2019 paper](https://cipriancorneanu.github.io/files/corneanu2019what.pdf)
 * [CVPR2019 poster](https://cipriancorneanu.github.io/files/corneanu2019what_poster.pdf)
 
-If you are using this in your research plase cite: 
+If you are using this in your research please cite: 
+
 <em> What Does It Mean to Learn in Deep Networks? And, How Does One Detect Adversarial Attacks?
 CA Corneanu, M Madadi, S Escalera, AM Martinez - Proceedings of the IEEE Conference on Computer and Pattern Recognition, 2019 <\em>
