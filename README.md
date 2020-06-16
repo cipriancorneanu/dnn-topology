@@ -39,10 +39,13 @@ It will train for 50 epochs and compute topology for the epochs in --epochs_test
 
 ## More Information
 For more information check:
-* [CVPR2019 paper](https://cipriancorneanu.github.io/files/corneanu2019what.pdf)
+* [CVPR2019 paper](http://openaccess.thecvf.com/content_CVPR_2019/papers/Corneanu_What_Does_It_Mean_to_Learn_in_Deep_Networks_And_CVPR_2019_paper.pdf)
 * [CVPR2019 poster](https://cipriancorneanu.github.io/files/corneanu2019what_poster.pdf)
+* [CVPR2020 paper](http://openaccess.thecvf.com/content_CVPR_2020/papers/Corneanu_Computing_the_Testing_Error_Without_a_Testing_Set_CVPR_2020_paper.pdf)
 
 If you are using this in your research please cite: 
 
 <em> What Does It Mean to Learn in Deep Networks? And, How Does One Detect Adversarial Attacks?
 CA Corneanu, M Madadi, S Escalera, AM Martinez - Proceedings of the IEEE Conference on Computer and Pattern Recognition, 2019 <\em>
+
+<em> Corneanu, Ciprian A., M Madadi, Sergio Escalera, and Aleix M. Martinez. "Computing the Testing Error without a Testing Set." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020. <\em>
