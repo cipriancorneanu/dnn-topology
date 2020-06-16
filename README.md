@@ -1,11 +1,11 @@
 # DNN-TOPOLOGY
 
-We usually use a deep neural network (DNN) to learn a functional mapping between a set of inputs and a desired set of outputs. The aim of this corpus of work is to study the topology of this functional mapping and derive useful insights about learning properties of the network. We provide this code as a basis for computing topological desscriptors of deep neural networks. 
+We usually use a deep neural network (DNN) to learn a functional mapping between a set of inputs and a desired set of outputs. The aim of this corpus of work is to study the topology of this functional mapping and derive useful insights about learning properties of the network. We provide this code as a basis for computing topological descriptors of deep neural networks. 
 
 There are two main applications of topologically describing a deep neural network. They are both documented in two CVPR papers (see links below).  
 
 
-## Using Topology for Early Stopping
+## Early Stopping
 By projecting a DNN into a set of Topological Spaces and computing the Betti numbers, we show have shown that: 
 
 1. Learning to generalize in DNN is defined by the creation of 2D and 3D cavities in the topological space representing the correlations of activation of distant nodes of the DNN, and the movement of 1D cavities from higher to lower density.
@@ -14,12 +14,10 @@ By projecting a DNN into a set of Topological Spaces and computing the Betti num
 ![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/overview.png)
 
 
-## Using Topology for Predict Generalization Gap
+## Predicting Generalization Gap
 There is a high correlation between the generalization gap of a DNN and its topological description. By deriving simple laws among topological projections of a DNN, one can predict its generalization gap without the need of a test set.
 
 ![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/overview_cvpr2020.png)
-
-
 
 
 ### Prerequisites
