@@ -41,6 +41,8 @@ cmake -H. build
 make
 ```
 
+This was tested with python3.7.
+
 ### Quick start: Train LeNet on MNIST and compute topology
 
 Edit config.py to suit your needs:
