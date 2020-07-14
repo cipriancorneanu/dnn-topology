@@ -81,5 +81,7 @@ def test():
 
     for i,f in enumerate(feats):
         print('{}:{}'.format(i, np.prod(f.shape)))
-        
-'''test()'''
+
+
+if __name__ == '__main__':
+    test()

@@ -112,14 +112,18 @@ class ResNet(nn.Module):
 def ResNet18(num_classes=10):
     return ResNet(BasicBlock, [2,2,2,2], num_classes=num_classes)
 
+
 def ResNet34(num_classes=10):
     return ResNet(BasicBlock, [3,4,6,3], num_classes=num_classes)
+
 
 def ResNet50(num_classes=10):
     return ResNet(Bottleneck, [3,4,6,3], num_classes=num_classes)
 
+
 def ResNet101(num_classes=10):
     return ResNet(Bottleneck, [3,4,23,3], num_classes=num_classes)
+
 
 def ResNet152(num_classes=10):
     return ResNet(Bottleneck, [3,8,36,3], num_classes=num_classes)
@@ -133,7 +137,7 @@ def test():
     print("------------")
     print([f.size() for f in feats])
     print(net)
-    
-    print(y.size())
 
-'''test()'''
+
+if __name__ == '__main__':
+    test()
