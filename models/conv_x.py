@@ -229,5 +229,6 @@ def test():
     for i, layer in enumerate(conv_6.forward_features(x)):
         print('layer {} has size {}'.format(i, layer.shape))
 
-        
-'''test()'''
+
+if __name__== '__main__':
+    test()
