@@ -2,41 +2,25 @@
 
 We usually use a deep neural network (DNN) to learn a functional mapping between a set of inputs and a desired set of outputs. The aim of this corpus of work is to study the topology of this functional mapping and derive useful insights about learning properties of the network. We provide this code as a basis for computing topological descriptors of deep neural networks.
 
-There are two main applications of topologically describing a deep neural network. They are both documented in two CVPR papers (see links below).  
+## Setup
 
+After cloning the repository follow the steps:
 
-## Early Stopping
-By projecting a DNN into a set of Topological Spaces and computing the Betti numbers, we show have shown that:
-
-1. Learning to generalize in DNN is defined by the creation of 2D and 3D cavities in the topological space representing the correlations of activation of distant nodes of the DNN, and the movement of 1D cavities from higher to lower density.
-2. Memorizing (overfitting) is indicated by a regression of these cavities toward higher densities in the topological space.
-
-![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/overview.png)
-
-
-## Predicting Generalization Gap
-There is a high correlation between the generalization gap of a DNN and its topological description. By deriving simple laws among topological projections of a DNN, one can predict its generalization gap without the need of a test set.
-
-![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/overview_cvpr2020.png)
-
-
-### Setup
-
-After cloning the repository install the required packages:
+1. Install the required packages
 
 ```
 pip install -r requirements.txt
 ```
 
-Next you will have to set up
-DIPHA and OpenMPI which DIPHA depends on. If you try to build DIPHA without
+2. Setup OpenMPI
+
+Next you will have to set up OpenMPI, which DIPHA depends on. If you try to build DIPHA without
 having OpenMPI (or other compatible MPI library installed) you might get the
 following error: "Could NOT find MPI (missing: MPI_C_FOUND MPI_CXX_FOUND)".
 
+Download latest version of [OpenMPI](https://www.open-mpi.org/software/ompi/v4.0/).
 
-Download latest version of OpenMPI from https://www.open-mpi.org/software/ompi/v4.0/.
-
-Build following https://www.open-mpi.org/faq/?category=building#easy-build:
+Then build following:
 
 ```
 gunzip -c openmpi-4.0.4.tar.gz | tar xf -
@@ -45,7 +29,9 @@ cd openmpi-4.0.4
 make all install
 ```
 
-Once that completes, clone and build DIPHA:
+You might find more useful information on their dedicated [website](https://www.open-mpi.org/faq/?category=building#easy-build).  
+
+3. Clone and build DIPHA.
 
 ```
 git clone https://github.com/DIPHA/dipha.git
@@ -56,31 +42,66 @@ make
 ```
 
 ### Quick start: Train LeNet on MNIST and compute topology
-Edit scripts/config.py to suit your needs:
+
+Edit config.py to suit your needs:
 - SAVE_PATH sets where to save intermediary and final results. Some results, for example the checkpoints of the models can occupy significant space. Also check the --save_every optional argument you can pass to main.py which sets the frequency of model saving.  
 - NPROC sets the number of CPUs used if you want to use mutiple core processing. It speeds up computation.
 - UPPER_DIM sets the upper limit for the betti numbers you will comute. Higher dimensional betti numbers can be VERY computational demanding. Start with UPPER_DIM=2 and increase only if possible.
 
-For training LeNet on MNIST and computing the first betti curve do:
+For training LeNet on MNIST and computing the first and second betti curve do:
+
 ```
-python main.py --net lenet --dataset mnist --trial 0 --lr 0.001  --n_epochs_train 50 --epochs_test '1 5 10 20 30 40 50' --graph_type functional --train 1 --build_graph 1
+python main.py --net lenet --dataset mnist --trial 0 --lr 0.0005  --n_epochs_train 50 --epochs_test '1 5 10 20 30 40 50' --graph_type functional --train 1 --build_graph 1
 ```
+
 It will train for 50 epochs and compute topology for the epochs in --epochs_test.
-Once finished, you should find a set of files of the form 'adj_epc[EPC]_trl[TRIAL]_0.4.bin.out'
-in you SAVE_PATH/network_dataset/ directory. They contain the persistent homology
+Once finished, you should find a set of files of the form 'adj_epc<EPC>_trl<TRIAL>_<MAX_EPSILON>.bin.out'
+in you <SAVE_PATH>/<NETWORK>_<DATASET>/ directory. They contain the persistent homology
 results in a specific format.
 
-Now run
+For visualising the first betti curve, run:
 
 ```
-python visualize.py --trial 0 --net lenet --dataset mnist --epochs 1 5 20 30 40 50 ```
+python visualize.py --trial 0 --net lenet --dataset mnist --epochs 0 1 3 5 7 10 30 --dim 1
+
 ```
 
-and we should see a set of topological descriptors for each epoch.
+This might produce something like this:
+![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/betti_1.png)
 
 
+For the second betti curve run:
+```
+python visualize.py --trial 0 --net lenet --dataset mnist --epochs 0 1 5 10 30 50 --dim 2  
+```
 
-[//]: # (### Support models  Currently LeNet and VGG16 are supported. )
+Which might produce something like this:
+![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/betti_2.png)
+
+Also notice that average life and midlife are computer for each epoch.
+Actual results might slightly differ on each training depending on initialization
+and hyper-parameters (learning rate, optimization) setup.
+
+
+## Background
+
+There are two main applications of topologically describing a deep neural network. They are both documented in two CVPR papers (see links below).  
+
+
+### Early Stopping
+By projecting a DNN into a set of Topological Spaces and computing the Betti numbers, we show have shown that:
+
+1. Learning to generalize in DNN is defined by the creation of 2D and 3D cavities in the topological space representing the correlations of activation of distant nodes of the DNN, and the movement of 1D cavities from higher to lower density.
+2. Memorizing (overfitting) is indicated by a regression of these cavities toward higher densities in the topological space.
+
+![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/overview.png)
+
+
+### Predicting Generalization Gap
+There is a high correlation between the generalization gap of a DNN and its topological description. By deriving simple laws among topological projections of a DNN, one can predict its generalization gap without the need of a test set.
+
+![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/overview_cvpr2020.png)
+
 
 ## More Information
 For more information check:
