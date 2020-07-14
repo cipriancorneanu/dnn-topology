@@ -1,6 +1,5 @@
 import argparse
 import os
-import numpy as np 
 from config import SAVE_PATH
 
 parser = argparse.ArgumentParser()
@@ -27,18 +26,6 @@ parser.add_argument('--select_nodes', default='0')
 parser.add_argument('--partition', default='hardcoded')
 args = parser.parse_args()
 
-''' Create thresholds argument (logarithmic) '''
-'''
-start, stop = tuple([float(x) for x in args.thresholds.split()])
-if args.scale == 'logarithmic':
-    thresholds = str(['{:.4f}'.format(x) for x in  np.geomspace(start, stop)])[1:-1].replace('\'','').replace(',','')
-elif args.scale == 'linear':
-    step = 0.025
-    thresholds = str(['{:.4f}'.format(x) for x in np.arange(start, stop, step)])[1:-1].replace('\'','').replace(',','')
-
-print(thresholds)
-'''
-
 
 def visible_print(message):
     ''' Visible print'''
@@ -51,45 +38,32 @@ def visible_print(message):
     
 if args.train:
     visible_print('Training network')
-    os.system('python ../train.py --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.n_epochs_train+' --lr '+args.lr+' --permute_labels '+args.permute_labels+' --subset '+args.data_subset+' --binarize_labels '+args.binarize_labels)
+    os.system('python ./train.py --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+
+              args.n_epochs_train+' --lr '+args.lr+' --permute_labels '+args.permute_labels+' --subset '+args.data_subset+
+              ' --binarize_labels '+args.binarize_labels)
 
-    
 if args.build_graph:
     visible_print('Building '+args.graph_type+' graph')
     if args.graph_type == 'functional':
-        os.system('python ../build_graph_functional.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+args.filtration+' --split '+args.split+' --kl '+args.kl+' --permute_labels '+args.permute_labels+' --binarize_labels '+args.binarize_labels)
+        os.system('python ./build_graph_functional.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+
+                  args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+args.filtration+
+                  ' --split '+args.split+' --kl '+args.kl+' --permute_labels '+args.permute_labels+' --binarize_labels '+args.binarize_labels)
     elif args.graph_type == 'functional_big_networks':
-        os.system('python ../build_graph_functional_big_networks.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+args.filtration+' --split '+args.split+' --kl '+args.kl+' --permute_labels '+args.permute_labels+' --binarize_labels '+args.binarize_labels+' --partition '+args.partition)
+        os.system('python ./build_graph_functional_big_networks.py --save_path '+SAVE_PATH+' --net '+args.net+
+                  ' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+
+                  args.filtration+' --split '+args.split+' --kl '+args.kl+' --permute_labels '+args.permute_labels+
+                  ' --binarize_labels '+args.binarize_labels+' --partition '+args.partition)
     elif args.graph_type == 'functional_persample':
-        os.system('python ../build_graph_functional_persample.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+args.filtration+' --permute_labels '+args.permute_labels+' --binarize_labels '+args.binarize_labels+' --n_samples '+str(args.n_samples)+' --select_nodes '+args.select_nodes)
+        os.system('python ./build_graph_functional_persample.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+
+                  args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+args.filtration+' --permute_labels '+
+                  args.permute_labels+' --binarize_labels '+args.binarize_labels+' --n_samples '+str(args.n_samples)+' --select_nodes '+
+                  args.select_nodes)
     elif args.graph_type == 'functional_big_networks_per_partition':
-        os.system('python ../build_graph_functional_big_networks_per_partition.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+args.filtration+' --split '+args.split+ ' --subsplit '+args.subsplit+' --kl '+args.kl+' --permute_labels '+args.permute_labels+' --binarize_labels '+args.binarize_labels+' --partition '+args.partition)
-
+        os.system('python ./build_graph_functional_big_networks_per_partition.py --save_path '+SAVE_PATH+' --net '+
+                  args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --filtration '+
+                  args.filtration+' --split '+args.split+ ' --subsplit '+args.subsplit+' --kl '+args.kl+' --permute_labels '+
+                  args.permute_labels+' --binarize_labels '+args.binarize_labels+' --partition '+args.partition)
 
 visible_print('Computing topology')
-os.system('python compute_topology.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --epochs '+args.epochs_test+' --trial '+ args.trial)
-
-
-'''
-if args.graph_type == 'functional_persample':
-    for sample in range(args.n_samples):
-        os.system('python compute_topology_persample.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --epochs '+args.epochs_test+' --thresholds '+thresholds+' --trial '+ args.trial + ' --sample '+str(sample))
-if args.graph_type == 'functional_big_networks_per_partition':
-    for part in range(int(args.split)):
-        os.system('python compute_topology_per_partition.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --epochs '+args.epochs_test+' --thresholds '+thresholds+' --trial '+ args.trial + ' --part ' + str(part) + ' --homology_type '+args.homology_type)
-else:
-'''
-
-
-'''
-visible_print('Prepare topology results')
-if args.homology_type == 'static':
-    if args.graph_type=='functional_persample':
-        for sample in range(args.n_samples):
-            os.system('python prepare_results_persample.py --path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --thresholds '+thresholds+' --permute_labels '+args.permute_labels+' --subset '+args.data_subset + ' --sample ' + str(sample))
-    if args.graph_type=='functional_big_networks_per_partition':
-        for part in range(int(args.split)):
-            os.system('python prepare_results_big_networks_per_partition.py --path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --thresholds '+thresholds+' --permute_labels '+args.permute_labels+' --subset '+args.data_subset + ' --split ' + args.split + ' --part ' + str(part))        
-    else:
-        os.system('python prepare_results.py --path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --trial '+args.trial+' --epochs '+args.epochs_test+' --thresholds '+thresholds+' --permute_labels '+args.permute_labels+' --subset '+args.data_subset+' --split '+args.split)
-'''
+os.system('python ./compute_topology.py --save_path '+SAVE_PATH+' --net '+args.net+' --dataset '+args.dataset+' --epochs '+
+          args.epochs_test+' --trial '+ args.trial)
