@@ -79,7 +79,7 @@ This might produce something like this:
 
 Also notice that average life and midlife are computer for each epoch.
 Actual results might slightly differ on each training depending on initialization
-and hyper-parameters (learning rate, optimization) setup.
+and hyper-parameters (learning rate, optimization).
 
 
 ## Background
