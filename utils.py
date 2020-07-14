@@ -6,17 +6,11 @@
 import os
 import sys
 import time
-import math
 import torch
 import torch.nn as nn
 import torch.nn.init as init
-import torchvision.transforms as transforms
-import torchvision
 import numpy as np
-import h5py
-import errno
 import os.path
-import random
 
 
 def get_mean_and_std(dataset):
@@ -133,6 +127,7 @@ def format_time(seconds):
         f = '0ms'
     return f
 
+
 def save_splits(splits, split_size, save_dir, start_layer, epoch, threshold, trial):
     ''' Some description '''
     for i_layer, layer in enumerate(splits):
@@ -147,7 +142,7 @@ def save_splits(splits, split_size, save_dir, start_layer, epoch, threshold, tri
 
 
 def save_dipha(fname, adj):
-    from scripts.config import DIPHA_MAGIC_NUMBER, ID
+    from config import DIPHA_MAGIC_NUMBER, ID
     ''' Write adjacency to binary. To use as DIPHA input for persistence homology '''
     output_file = open(fname, 'wb')
     np.array(DIPHA_MAGIC_NUMBER, dtype=np.int64).tofile(output_file)
