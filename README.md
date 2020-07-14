@@ -74,7 +74,7 @@ This might produce something like this:
 
 For the second betti curve run:
 ```
-python visualize.py --trial 0 --net lenet --dataset mnist --epochs 0 1 5 10 30 50 --dim 2  
+python visualise.py --trial 0 --net lenet --dataset mnist --epochs 0 1 5 10 30 50 --dim 2  
 ```
 
 Which might produce something like this:
