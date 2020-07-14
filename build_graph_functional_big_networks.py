@@ -1,27 +1,13 @@
 from __future__ import print_function
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.optim.lr_scheduler import ReduceLROnPlateau
-import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-import torchvision
-import os
-import argparse
-from utils import progress_bar
-import numpy as np
-import h5py
 from utils import *
-from models.utils import get_model, get_criterion
+from models.utils import get_model
 from passers import Passer
-from savers import save_activations, save_checkpoint, save_losses
 from loaders import *
 from graph import *
-from prune import *
 from labels import load_manipulator
-import pymetis
 import time
-from scripts.config import DIPHA_MAGIC_NUMBER, ID
+
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--net')
