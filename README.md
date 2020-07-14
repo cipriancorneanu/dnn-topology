@@ -68,17 +68,14 @@ python visualize.py --trial 0 --net lenet --dataset mnist --epochs 0 1 3 5 7 10 
 
 ```
 
-This might produce something like this:
-![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/betti_1.png)
-
-
 For the second betti curve run:
 ```
 python visualise.py --trial 0 --net lenet --dataset mnist --epochs 0 1 5 10 30 50 --dim 2  
 ```
 
-Which might produce something like this:
-![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/betti_2.png)
+This might produce something like this:
+![alt text](https://github.com/cipriancorneanu/dnn-topology/blob/master/art/betti.png)
+
 
 Also notice that average life and midlife are computer for each epoch.
 Actual results might slightly differ on each training depending on initialization
