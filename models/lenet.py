@@ -38,16 +38,12 @@ class LeNet(nn.Module):
         self.fc1 = nn.Linear(self.feat_size, 50)
         self.fc2 = nn.Linear(50, num_classes)
 
-    def forward(self, x, m=None):
+    def forward(self, x):
         x1 = F.relu(F.max_pool2d(self.conv1(x), 2))
-        if m: x1 = m[0]*x1
         x2 = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x1)), 2))
         x2 = x2.view(-1, self.feat_size)
-        if m: x2 = m[1]*x2
         x3 = F.relu(self.fc1(x2))
-        if m: x3 = m[2]*x3
         x4 = F.log_softmax(self.fc2(x3), dim=1)
-        if m: x4 = m[3]*x4
         return x4
     
     def forward_features(self, x):
@@ -105,13 +101,6 @@ def test():
     for i, layer in enumerate(net.forward_features(x)):
         print('layer {} has size {}'.format(i, layer.shape))
 
-    ''' Create mask '''
-    mask = [torch.zeros_like(l) for l in net.forward_features(x)]
 
-    for i, m in enumerate(mask):
-        print('mask {} has size {}'.format(i, m.shape))
-        
-    y = net(x, mask)
-    print(y)
-    
-'''test()'''
+if __name__ == '__main__':
+    test()
